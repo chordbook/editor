@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "type": "module",
   "description": "The ChordPro editor used by ChordBook.app",
-  "exports": "./src/index.js",
+  "module": "dist/index.js",
+  "main": "dist/index.cjs",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "prepare": "tsup src/index.ts --format esm,cjs --minify --dts",
+    "build": "vite build --outDir demo",
     "preview": "vite preview",
     "test": "jest"
   },
@@ -41,6 +49,7 @@
     "@codemirror/view": "^6.26.0"
   },
   "devDependencies": {
+    "tsup": "^8.0.2",
     "typescript": "^5.4.2",
     "vite": "^5.1.6"
   }
