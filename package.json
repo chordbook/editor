@@ -13,7 +13,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "prepare": "tsup src/index.ts --format esm,cjs --minify --dts",
+    "prepare": "tsup src/index.ts --format esm,cjs --minify --dts --sourcemap",
     "build": "vite build --outDir demo",
     "preview": "vite preview",
     "test": "jest"
