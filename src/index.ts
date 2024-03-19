@@ -5,7 +5,7 @@ import extensions from "./extensions"
 export { extensions }
 
 export function createEditor (element: HTMLElement, state: EditorStateConfig = {}) {
-  new EditorView({
+  return new EditorView({
     parent: element,
     state: EditorState.create({
       extensions,
