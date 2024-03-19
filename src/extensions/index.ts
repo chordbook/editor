@@ -1,5 +1,5 @@
 import { EditorState } from '@codemirror/state'
-import { autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap } from '@codemirror/autocomplete'
+import { autocompletion, closeBrackets, closeBracketsKeymap, completionKeymap, completionStatus, acceptCompletion } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { bracketMatching } from '@codemirror/language'
 import { lintKeymap } from '@codemirror/lint'
@@ -31,5 +31,15 @@ export default [
     ...historyKeymap,
     ...completionKeymap,
     ...lintKeymap,
+    // Accept completion on Tab
+    {
+      key: 'Tab',
+      preventDefault: true,
+      run: e => {
+        if (completionStatus(e.state)) return acceptCompletion(e);
+        return false
+      },
+    },
+
   ])
 ]
