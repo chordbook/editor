@@ -4,7 +4,11 @@ export default () => {
   return EditorView.theme({
     "&": {
       color: "#c1c1c1",
-      backgroundColor: "#2b2b2b"
+      backgroundColor: "#2b2b2b",
+      minHeight: '100%'
+    },
+    ".cm-editor": {
+      minHeight: '100%'
     },
     ".cm-content": {
       caretColor: "#aeafad"
