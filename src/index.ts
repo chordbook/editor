@@ -1,25 +1,28 @@
 import { EditorState, EditorStateConfig } from '@codemirror/state'
-import { EditorView } from '@codemirror/view'
+import { EditorView, EditorViewConfig } from '@codemirror/view'
 import extensions from "./extensions"
 import { EventCallbacks, eventsToExtensions } from "./events"
 
 export type { EventCallbacks }
 export { extensions, eventsToExtensions }
 
-export function createState(state: EditorStateConfig = {}, events: EventCallbacks = {}) {
+export interface StateConfig extends EditorStateConfig {
+  events?: EventCallbacks
+}
 
+export function createState({ events, ...state }: StateConfig = {}) {
   return EditorState.create({
+    ...state,
     extensions: [
       ...extensions,
       ...eventsToExtensions(events)
     ],
-    ...state,
   })
 }
 
-export function createEditor (element: HTMLElement, state: EditorStateConfig = {}, events: EventCallbacks = {}) {
+export function createEditor({ state, ...config }: EditorViewConfig = {}) {
   return new EditorView({
-    parent: element,
-    state: createState(state, events),
+    ...config,
+    state: createState(state)
   })
 }
