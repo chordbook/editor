@@ -11,11 +11,16 @@ export interface EventCallbacks {
 }
 
 export function eventsToExtensions ({ onChange, onFocus, onBlur, onPaste, onChangeInterval }: EventCallbacks = { onChangeInterval: 300 }): Extension[]  {
-  const debouncedOnChange = onChange && onChangeInterval ? debounce(onChange, onChangeInterval) : onChange
+  // Debounce onChange event since extracting the document content is expensive
+  let debouncedOnChange: ((viewUpdate: ViewUpdate) => void) | undefined
+  if (onChange && onChangeInterval) {
+    debouncedOnChange = debounce((v: ViewUpdate) => { onChange!(v.state.doc.toString(), v) }, onChangeInterval)
+  }
+
   return [
     // https://discuss.codemirror.net/t/codemirror-6-proper-way-to-listen-for-changes/2395/11
     EditorView.updateListener.of(v => {
-      if (v.docChanged) debouncedOnChange?.(v.state.doc.toString(), v)
+      if (v.docChanged) debouncedOnChange?.(v)
       if (v.focusChanged) v.view.hasFocus ? onFocus?.(v) : onBlur?.(v)
     }),
     EditorView.domEventHandlers({ paste: onPaste })
