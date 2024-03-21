@@ -6,12 +6,12 @@ import { lintKeymap } from '@codemirror/lint'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
 import { drawSelection, highlightActiveLine, highlightActiveLineGutter, highlightSpecialChars, keymap, lineNumbers } from '@codemirror/view'
 import { ChordPro } from '@chordbook/codemirror-lang-chordpro'
-import highlightStyle from './highlightStyle'
-import theme from './theme'
+import { oneDark } from '@codemirror/theme-one-dark'
+import baseTheme from './baseTheme'
 
 export default [
-  theme(),
-  highlightStyle,
+  baseTheme,
+  oneDark,
   ChordPro(),
   lineNumbers(),
   highlightActiveLineGutter(),
