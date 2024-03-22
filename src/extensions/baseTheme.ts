@@ -2,10 +2,11 @@ import { EditorView } from "@codemirror/view"
 
 export default EditorView.baseTheme({
   "&": {
-    minHeight: '100%'
+    height: '100%',
   },
   ".cm-editor": {
-    minHeight: '100%'
+    height: '100%',
+    overflow: 'auto'
   },
   ".cm-scroller": {
     flex: '1'
