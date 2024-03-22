@@ -6,5 +6,8 @@ export default EditorView.baseTheme({
   },
   ".cm-editor": {
     minHeight: '100%'
+  },
+  ".cm-scroller": {
+    flex: '1'
   }
 })
