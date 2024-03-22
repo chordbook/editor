@@ -8,6 +8,8 @@ import { drawSelection, highlightActiveLine, highlightActiveLineGutter, highligh
 import { ChordPro } from '@chordbook/codemirror-lang-chordpro'
 import { oneDark } from '@codemirror/theme-one-dark'
 import baseTheme from './baseTheme'
+import linter from './linter'
+import { lintGutter } from "@codemirror/lint"
 
 export default [
   baseTheme,
@@ -40,5 +42,7 @@ export default [
         return false
       },
     }
-  ])
+  ]),
+  linter,
+  lintGutter()
 ]
