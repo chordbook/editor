@@ -1,29 +1,19 @@
-import { EditorState, EditorStateConfig } from '@codemirror/state'
+import { Extension } from '@codemirror/state'
 import { EditorView, EditorViewConfig } from '@codemirror/view'
 import extensions from "./extensions"
-import { eventsToExtensions, EventConfig } from "./events"
+import { eventsToExtensions } from "./events"
 
-export type { EventConfig }
-export { extensions, eventsToExtensions }
+export const basicSetup: Extension[] = [
+  ...extensions,
+  ...eventsToExtensions()
+]
 
-export interface StateConfig extends EditorStateConfig {
-  events?: EventConfig
-}
-
-export function createState({ events, ...state }: StateConfig = {}) {
-  return EditorState.create({
-    ...state,
-    extensions: [
-      ...extensions,
-      ...eventsToExtensions(events),
-      state.extensions ?? []
-    ],
-  })
-}
-
-export function createEditor({ state, ...config }: EditorViewConfig = {}) {
+export function createEditor(config: EditorViewConfig = {}) {
   return new EditorView({
     ...config,
-    state: createState(state)
+    extensions: [
+      ...basicSetup,
+      ...(config.extensions ? [config.extensions] : [])
+    ].flat()
   })
 }

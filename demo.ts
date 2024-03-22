@@ -26,17 +26,12 @@ const el = document.querySelector('#editor')!
 
 createEditor({
   parent: el,
-  state: {
-    doc,
-    extensions: [
-      linter((view) => {
-        return [{ from: 0, to: 46, message: "This is what warnings look like", severity: "warning" }]
-      })
-    ],
-    events: {
-      changeInterval: 500, // `change` events are debounced by default (300ms)
-    }
-  }
+  doc,
+  extensions: [
+    linter((view) => {
+      return [{ from: 0, to: 46, message: "This is what warnings look like", severity: "warning" }]
+    })
+  ]
 })
 
 el.addEventListener('focus', console.log)

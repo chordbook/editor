@@ -39,7 +39,6 @@ export default [
         if (completionStatus(e.state)) return acceptCompletion(e);
         return false
       },
-    },
-
+    }
   ])
 ]
