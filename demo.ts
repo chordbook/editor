@@ -21,16 +21,19 @@ This is the [G]chorus
 # ✅ Snippets - type "title", "start_of…", "tab" or any other ChordPro directive
 `
 
+const el = document.querySelector('#editor')!
+
 createEditor({
-  parent: document.querySelector('#editor')!,
+  parent: el,
   state: {
     doc,
     events: {
-      onChange: (doc, viewUpdate) => console.log("onChange", doc, viewUpdate),
-      onChangeInterval: 500, // onChange events are debounced by default (300ms)
-      onFocus: viewUpdate => console.log("onFocus", viewUpdate),
-      onBlur: viewUpdate => console.log("onBlur", viewUpdate),
-      onPaste: (event, view) => console.log("onPaste", event, view)
+      changeInterval: 500, // `change` events are debounced by default (300ms)
     }
   }
 })
+
+el.addEventListener('focus', console.log)
+el.addEventListener('blur', console.log)
+el.addEventListener('change', console.log)
+el.addEventListener('paste', console.log)

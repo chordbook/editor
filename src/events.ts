@@ -1,29 +1,29 @@
 import { EditorView, ViewUpdate } from "@codemirror/view"
 import { Extension } from "@codemirror/state"
 
-export interface EventCallbacks {
-  onChange?(doc: string, viewUpdate: ViewUpdate): void
-  onChangeInterval?: number
-  onUpdate?(viewUpdate: ViewUpdate): void
-  onFocus?(viewUpdate: ViewUpdate): void
-  onBlur?(viewUpdate: ViewUpdate): void
-  onPaste?(event: ClipboardEvent, view: EditorView): void
+export interface EventConfig {
+  changeInterval?: number
 }
 
-export function eventsToExtensions ({ onChange, onFocus, onBlur, onPaste, onChangeInterval = 300 }: EventCallbacks = { }): Extension[]  {
-  // Debounce onChange event since extracting the document content is expensive
-  let debouncedOnChange: ((viewUpdate: ViewUpdate) => void) | undefined
-  if (onChange) {
-    debouncedOnChange = debounce((v: ViewUpdate) => { onChange!(v.state.doc.toString(), v) }, onChangeInterval)
-  }
+function dispatch(viewUpdate: ViewUpdate, type: string, detail: any = {}) {
+  const event = new CustomEvent(type, { bubbles: true, detail: { viewUpdate, ...detail } })
+  viewUpdate.view.dom.dispatchEvent(event)
+}
 
+const onChange = (viewUpdate: ViewUpdate): void => {
+  dispatch(viewUpdate, 'change', { doc: viewUpdate.state.doc.toString() })
+}
+const onFocus = (viewUpdate: ViewUpdate): void => { dispatch(viewUpdate, 'focus') }
+const onBlur = (viewUpdate: ViewUpdate): void => { dispatch(viewUpdate, 'blur') }
+
+export function eventsToExtensions ({ changeInterval = 300 }: EventConfig = {}): Extension[]  {
+  const debouncedChange = debounce(onChange, changeInterval)
   return [
     // https://discuss.codemirror.net/t/codemirror-6-proper-way-to-listen-for-changes/2395/11
     EditorView.updateListener.of(v => {
-      if (v.docChanged) debouncedOnChange?.(v)
-      if (v.focusChanged) v.view.hasFocus ? onFocus?.(v) : onBlur?.(v)
-    }),
-    EditorView.domEventHandlers({ paste: onPaste })
+      if (v.docChanged) debouncedChange(v)
+      if (v.focusChanged) v.view.hasFocus ? onFocus(v) : onBlur(v)
+    })
   ]
 }
 

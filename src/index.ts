@@ -1,13 +1,13 @@
 import { EditorState, EditorStateConfig } from '@codemirror/state'
 import { EditorView, EditorViewConfig } from '@codemirror/view'
 import extensions from "./extensions"
-import { EventCallbacks, eventsToExtensions } from "./events"
+import { eventsToExtensions, EventConfig } from "./events"
 
-export type { EventCallbacks }
+export type { EventConfig }
 export { extensions, eventsToExtensions }
 
 export interface StateConfig extends EditorStateConfig {
-  events?: EventCallbacks
+  events?: EventConfig
 }
 
 export function createState({ events, ...state }: StateConfig = {}) {
