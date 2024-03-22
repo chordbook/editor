@@ -3,7 +3,6 @@ import { linter } from "@codemirror/lint"
 
 const doc = `# Welcome to the new ChordBook.app Editor! 🎸
 # This editor is optimized for the ChordPro format (https://www.chordpro.org).
-# This interactive demo will give you an overview of the features.
 
 {title: Song Title}
 {artist: Artist Name}
