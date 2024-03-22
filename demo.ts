@@ -1,4 +1,5 @@
 import { createEditor } from "./src/"
+import { linter } from "@codemirror/lint"
 
 const doc = `# Welcome to the new ChordBook.app Editor! 🎸
 # This editor is optimized for the ChordPro format (https://www.chordpro.org).
@@ -27,6 +28,11 @@ createEditor({
   parent: el,
   state: {
     doc,
+    extensions: [
+      linter((view) => {
+        return [{ from: 0, to: 46, message: "This is what warnings look like", severity: "warning" }]
+      })
+    ],
     events: {
       changeInterval: 500, // `change` events are debounced by default (300ms)
     }

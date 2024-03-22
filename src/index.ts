@@ -15,7 +15,8 @@ export function createState({ events, ...state }: StateConfig = {}) {
     ...state,
     extensions: [
       ...extensions,
-      ...eventsToExtensions(events)
+      ...eventsToExtensions(events),
+      state.extensions ?? []
     ],
   })
 }
