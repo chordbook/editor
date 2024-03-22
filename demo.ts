@@ -20,6 +20,8 @@ This is the [G]chorus
 # ✅ Syntax Highlighting
 # ✅ Chord autocomplete - type "[" and you will see autocomplete of previously used chords
 # ✅ Snippets - type "title", "start_of…", "tab" or any other ChordPro directive
+# ✅ Error checking - Shows syntax errors in the editor
+{
 `
 
 const el = document.querySelector('#editor')!
