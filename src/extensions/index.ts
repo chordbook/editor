@@ -4,7 +4,7 @@ import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { bracketMatching } from '@codemirror/language'
 import { lintKeymap } from '@codemirror/lint'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
-import { drawSelection, highlightActiveLine, highlightActiveLineGutter, highlightSpecialChars, keymap, lineNumbers } from '@codemirror/view'
+import { drawSelection, highlightActiveLine, highlightActiveLineGutter, highlightSpecialChars, scrollPastEnd, keymap, lineNumbers } from '@codemirror/view'
 import { ChordPro } from '@chordbook/codemirror-lang-chordpro'
 import { oneDark } from '@codemirror/theme-one-dark'
 import baseTheme from './baseTheme'
@@ -15,6 +15,8 @@ export default [
   baseTheme,
   oneDark,
   ChordPro(),
+  linter,
+  lintGutter(),
   lineNumbers(),
   highlightActiveLineGutter(),
   highlightSpecialChars(),
@@ -41,8 +43,7 @@ export default [
         if (completionStatus(e.state)) return acceptCompletion(e);
         return false
       },
-    }
+    },
   ]),
-  linter,
-  lintGutter()
+  scrollPastEnd(),
 ]
