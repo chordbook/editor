@@ -10,10 +10,10 @@ export interface EventCallbacks {
   onPaste?(event: ClipboardEvent, view: EditorView): void
 }
 
-export function eventsToExtensions ({ onChange, onFocus, onBlur, onPaste, onChangeInterval }: EventCallbacks = { onChangeInterval: 300 }): Extension[]  {
+export function eventsToExtensions ({ onChange, onFocus, onBlur, onPaste, onChangeInterval = 300 }: EventCallbacks = { }): Extension[]  {
   // Debounce onChange event since extracting the document content is expensive
   let debouncedOnChange: ((viewUpdate: ViewUpdate) => void) | undefined
-  if (onChange && onChangeInterval) {
+  if (onChange) {
     debouncedOnChange = debounce((v: ViewUpdate) => { onChange!(v.state.doc.toString(), v) }, onChangeInterval)
   }
 
