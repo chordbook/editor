@@ -34,16 +34,7 @@ import { createEditor } from '@chordbook/editor'
 
 createEditor({
   parent: document.querySelector('#editor'),
-  state: {
-    doc: "Initial content",
-    events: {
-      onChange: (doc, viewUpdate) => console.log("onChange", doc, viewUpdate),
-      onChangeInterval: 500, // onChange events are debounced by default (300ms)
-      onFocus: viewUpdate => console.log("onFocus", viewUpdate),
-      onBlur: viewUpdate => console.log("onBlur", viewUpdate),
-      onPaste: (event, view) => console.log("onPaste", event, view)
-    }
-  }
+  doc: "Initial content"
 })
 ```
 
