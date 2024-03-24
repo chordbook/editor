@@ -53,4 +53,4 @@ This editor is built on some [previous work](https://github.com/bettermusic/stud
 
 ## License
 
-This project is licensed under the [AGPLv3](./LICENSE) license.
+This project is licensed under the [GPLv3.0](./LICENSE) license.
