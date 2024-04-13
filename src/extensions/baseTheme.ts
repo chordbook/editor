@@ -4,11 +4,8 @@ export default EditorView.baseTheme({
   "&": {
     height: '100%',
   },
-  ".cm-editor": {
-    height: '100%',
-    overflow: 'auto'
-  },
   ".cm-scroller": {
-    flex: '1'
+    flex: '1',
+    overflow: 'auto',
   }
 })
